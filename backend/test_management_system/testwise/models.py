@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.contrib.auth.models import User
+from rest_framework import serializers
 class User(AbstractUser):
   role = models.CharField(max_length=20, choices=(('admin', 'Admin'), ('user', 'User')), default='user')
 class Question(models.Model):
@@ -19,3 +20,15 @@ class Test(models.Model):
 class TestQuestion(models.Model):
   test = models.ForeignKey(Test, on_delete=models.CASCADE)
   question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+
+class UserSerializer(serializers.ModelSerializer):
+  password = serializers.CharField(write_only=True)
+
+  class Meta:
+    model = User
+    fields = ('username', 'password')
+
+  def create(self, validated_data):
+    user = User.objects.create_user(validated_data['username'], password=validated_data['password'])
+    return user
