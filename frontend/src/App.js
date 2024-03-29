@@ -1,8 +1,13 @@
+import './App.css'
+import './Components/LoginSignup/LoginSignup.jsx'
+import LoginSignup from './Components/LoginSignup/LoginSignup.jsx';
+
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div>
+      <LoginSignup/>
+    </div>
+
   );
 }
 

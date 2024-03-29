@@ -1,3 +1,11 @@
-/*@tailwind base;
-@tailwind components;
-@tailwind utilities;*/
+/* @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.background {
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #E5E7EB, #D1D5DB);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
