@@ -1,0 +1,57 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.background {
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #E5E7EB, #D1D5DB);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 200px;
+    background: rgb(144, 201, 173);
+    padding-bottom: 30px;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.text{
+    color: #003996;
+    font-size: 48px;
+    font-weight: 700;   
+}
+
+.underline{
+    width: 60px;
+    height: 6px;
+    color: #003996;
+    border-radius: 6px;
+}
+
+.submit-container{
+    display: flex;
+    gap: 30px;
+    margin: 60px auto;
+}
+
+.submit{
+    cursor: pointer;
+    background: purple;
+}
+
+.gray{  /*when button not selected*/
+    background: white ;
+    color: grey;
+}
