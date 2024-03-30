@@ -1,13 +1,15 @@
 import './App.css'
-import './Components/LoginSignup/LoginSignup.jsx'
-import LoginSignup from './Components/LoginSignup/LoginSignup.jsx';
-import HomeList from "./Components/HomeList.tsx";
+//import './Components/LoginSignup/LoginSignup.jsx'
+//import LoginSignup from './Components/LoginSignup/LoginSignup.jsx';
+import PrevTest from './Components/prevTest/prevTest.jsx'
+//import HomeList from "./Components/HomeList.tsx";
 
 function App() {
+
   return (
-    <>
-      <LoginSignup />
-      <HomeList />
+    < >
+     
+      <PrevTest />
     </>
 
   );

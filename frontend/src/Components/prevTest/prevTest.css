@@ -1,0 +1,28 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+* {
+    margin: 0;
+    padding: 0;
+    
+}
+body{
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 121, 107, 1) 14%, rgba(255, 0, 116, 1) 100%);
+}
+
+.container {
+    display: flex;
+    width: 100vw;
+    height: 10vh;
+    justify-content: center;
+    align-content: center;
+}
+
+.heading {
+    font-size: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: antiquewhite;
+    
+}
