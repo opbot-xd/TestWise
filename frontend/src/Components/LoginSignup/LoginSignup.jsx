@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './LoginSignup.css'
-import { useState } from 'react'
 
 import user_icon from '../Assets/user.png'
 import email_icon from '../Assets/mail.png'
@@ -13,27 +12,21 @@ const LoginSignup = () => {
         <div className='container'>
             <div className='header'>
                 <div className='text'>{action}</div>
-                <div className="underline"></div>
             </div>
             <div className="inputs">
                 {action === "Login" ? <div></div> : <div className="input">
                     <img src={user_icon} alt="" />
-                    <input type="text" />
+                    <input type="text" placeholder='user name' />
                 </div>}
-                    
-                <div className="input">
-                    <img src={user_icon} alt="" />
-                    <input type="text" />
-                </div>
 
                 <div className="input">
                     <img src={email_icon} alt="" />
-                    <input type="email" />
+                    <input type="email" placeholder='email'/>
                 </div>
 
                 <div className="input">
                     <img src={password_icon} alt="" />
-                    <input type="password" />
+                    <input type="password" placeholder='password' />
                 </div>
             </div>
             <div className="submit-container">
