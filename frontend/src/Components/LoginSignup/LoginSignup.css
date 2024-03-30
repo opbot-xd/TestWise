@@ -3,8 +3,8 @@
 @import 'tailwindcss/utilities';
 
 .background {
-    min-height: 100vh;
-    background-image: linear-gradient(to bottom, #E5E7EB, #D1D5DB);
+    height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,8 +12,9 @@
 .container{
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 200px;
+    align-items: center;
+    margin: 0px;
+    margin-top: 0px;
     background: rgb(144, 201, 173);
     padding-bottom: 30px;
 }
@@ -23,7 +24,7 @@
     flex-direction: column;
     align-items: center;
     gap: 9px;
-    width: 100%;
+    width: 100vw;
     margin-top: 30px;
 }
 
@@ -33,17 +34,10 @@
     font-weight: 700;   
 }
 
-.underline{
-    width: 60px;
-    height: 6px;
-    color: #003996;
-    border-radius: 6px;
-}
-
 .submit-container{
     display: flex;
-    gap: 30px;
-    margin: 60px auto;
+    gap: 50px;
+    margin: auto;
 }
 
 .submit{
@@ -54,4 +48,33 @@
 .gray{  /*when button not selected*/
     background: white ;
     color: grey;
+}
+
+.inputs{
+    margin-top: 55px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.input{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 480px;
+    height: 80px;
+}
+
+.input img{
+    margin: 0px 20px;
+    height: 20px;
+    width: 20px;
+
+}
+
+.input input{
+    height: 30px;
+    width: 250px;    
+    font-size: 20px;
+    color: rgb(11, 11, 11);
 }
