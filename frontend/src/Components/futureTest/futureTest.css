@@ -2,17 +2,16 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities'; 
 
+* {
+    margin: 0;
+    padding: 0;
+    
+}
 body{
     background: rgb(2, 0, 36);
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 121, 107, 1) 14%, rgba(255, 0, 116, 1) 100%);
 }
-.background {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .container {
     display: flex;
     width: 100vw;
