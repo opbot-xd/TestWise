@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import User, Test, Question, Choice
+from .models import Test, Question, Choice
 
-# Register your models here.
+'''# Register your models here.
 
 @admin.register(User)  # Register the User model with Django admin
 class UserAdmin(admin.ModelAdmin):
@@ -17,4 +17,8 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(Choice)  # Register the Choice model with Django admin
 class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ('text', 'question', 'is_correct')  # Fields to display in the admin list view
+    list_display = ('text', 'question', 'is_correct')  # Fields to display in the admin list view'''
+
+admin.site.register(Test)
+admin.site.register(Question)
+admin.site.register(Choice)
