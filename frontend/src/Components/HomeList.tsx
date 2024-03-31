@@ -1,13 +1,34 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./HomeList.css";
 
-// handle mouseclick at 46:47
-
-function HomeList() {
+const HomeList: React.FC = () => {
+  const navigate = useNavigate();
   let items = ["Previous Tests", "Current Tests", "Future Tests"];
 
   const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const handleItemClick = (index: number) => {
+    switch (index) {
+      case 0:
+        navigate("/previous-tests");
+        break;
+      case 1:
+        navigate("/current-tests");
+        break;
+      case 2:
+        navigate("/future-tests");
+        break;
+      case 3:
+        navigate("/");
+        break;
+      default:
+        index = -1;
+    }
+  };
+
   return (
-    <div>
+    <>
       <h1>Hello User!</h1>
       <ul className="list-group">
         {items.map((item, index) => (
@@ -18,14 +39,17 @@ function HomeList() {
                 : "list-group-item"
             }
             key={item}
-            onClick={() => setSelectedIndex(index)}
+            onClick={() => handleItemClick(index)}
           >
             {item}
           </li>
         ))}
       </ul>
-    </div>
+      <div className="logout" onClick={() => handleItemClick(3)}>
+        Logout
+      </div>
+    </>
   );
-}
+};
 
 export default HomeList;
