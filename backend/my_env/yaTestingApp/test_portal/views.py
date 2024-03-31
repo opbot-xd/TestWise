@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import render
 from rest_framework.decorators import api_view
-from .models import User, Test, Question, Choice
+from .models import Test, Question, Choice
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -38,13 +38,13 @@ class LogoutView(APIView):
         return Response({}, status=204)
     
 
-class UserListView(APIView):
+'''class UserListView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get(self, request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data)'''
 
 class TestCreateView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
