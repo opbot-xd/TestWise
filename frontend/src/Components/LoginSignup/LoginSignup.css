@@ -1,6 +1,10 @@
-@import 'tailwindcss/base';
+/* @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+body{
+    background: rgb(205, 159, 159);
+}
 
 .background {
     height: 100vh;
@@ -45,7 +49,7 @@
     background: purple;
 }
 
-.gray{  /*when button not selected*/
+.gray{  
     background: white ;
     color: grey;
 }
@@ -77,4 +81,4 @@
     width: 250px;    
     font-size: 20px;
     color: rgb(11, 11, 11);
-}
+} */
