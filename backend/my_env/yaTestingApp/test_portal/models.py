@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
-
+from django.core.exceptions import ValidationError
 
 
 class Admin(User):
@@ -19,7 +19,7 @@ class Test(models.Model):
     """
     Model for tests.
     """
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     start_date = models.DateTimeField()
 
@@ -42,3 +42,6 @@ class Choice(models.Model):
     text = models.CharField(max_length=255)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     is_correct = models.BooleanField(default=False)
+
+
+
