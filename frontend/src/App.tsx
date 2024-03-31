@@ -1,6 +1,6 @@
 import React from "react";
-import HomeList from "./Components/HomeList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomeList from "./Components/HomeList";
 import PrevTest from "./Components/prevTest/prevTest";
 import CurrTest from "./Components/currTest/currTest";
 import FutureTest from "./Components/futureTest/futureTest";
