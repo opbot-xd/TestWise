@@ -1,4 +1,6 @@
+import datetime
 from django.shortcuts import render
+from rest_framework.decorators import api_view
 from .models import User, Test, Question, Choice
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
@@ -74,3 +76,25 @@ class QuestionCreateView(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
+
+
+@api_view(['GET'])
+def get_prev_tests(request):
+  """
+  API endpoint to retrieve upcoming tests (start time within 3 hours).
+  """
+  # Calculate threshold time (current time minus 3 hours)
+  threshold_time = datetime.now() - datetime.timedelta(hours=3)
+  upcoming_tests = Test.objects.filter(start_date__lt=threshold_time)
+  serializer = TestSerializer(upcoming_tests, many=True)
+  return Response(serializer.data)
+
+@api_view(['GET'])
+def get_future_tests(request):
+  """
+  API endpoint to retrieve all tests (including upcoming and past).
+  """
+  current_time = datetime.now()
+  all_tests = Test.objects.filter(start_date__gt=current_time)
+  serializer = TestSerializer(all_tests, many=True)
+  return Response(serializer.data)
