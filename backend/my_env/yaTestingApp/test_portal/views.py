@@ -100,7 +100,7 @@ def get_future_tests(request):
   return Response(serializer.data)
 
 @api_view(['GET'])
-def get_upcoming_tests(request):
+def get_current_tests(request):
     """
     API endpoint to retrieve tests within the next 3 hours from current time.
     """
@@ -111,8 +111,4 @@ def get_upcoming_tests(request):
         start_date__gt=current_time, start_date__lt=threshold_time
     )
     serializer = TestSerializer(upcoming_tests, many=True)
-
-    if not upcoming_tests.exists():
-        return Response(status=Status.HTTP_204_NO_CONTENT)  # No content found
-
     return Response(serializer.data)

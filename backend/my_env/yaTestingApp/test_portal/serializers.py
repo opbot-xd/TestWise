@@ -18,14 +18,14 @@ class UserSerializer(serializers.ModelSerializer):
 class TestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
-        fields = ("id", "title", "description", "start_date")
+        fields = ("title", "description", "start_date")
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ("id", "text", "test", "question_type")
+        fields = ("text", "test", "question_type")
 
 class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Choice
-        fields = ("id", "text", "question", "is_correct")
+        fields = ("text", "question", "is_correct")
