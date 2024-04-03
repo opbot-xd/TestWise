@@ -98,3 +98,21 @@ def get_future_tests(request):
   all_tests = Test.objects.filter(start_date__gt=current_time)
   serializer = TestSerializer(all_tests, many=True)
   return Response(serializer.data)
+
+@api_view(['GET'])
+def get_upcoming_tests(request):
+    """
+    API endpoint to retrieve tests within the next 3 hours from current time.
+    """
+    current_time = datetime.now()
+    threshold_time = current_time + datetime.timedelta(hours=3)  # Add 3 hours
+
+    upcoming_tests = Test.objects.filter(
+        start_date__gt=current_time, start_date__lt=threshold_time
+    )
+    serializer = TestSerializer(upcoming_tests, many=True)
+
+    if not upcoming_tests.exists():
+        return Response(status=Status.HTTP_204_NO_CONTENT)  # No content found
+
+    return Response(serializer.data)
