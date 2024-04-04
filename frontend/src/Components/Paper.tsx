@@ -16,9 +16,11 @@ const QuestionsPage: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get<Question[]>('http://localhost:8000/tests/questions/test1');
+      const response = await axios.get<Question[]>(
+        "http://localhost:8000/tests/questions/test1"
+      );
       setQuestions(response.data);
-    } catch (err) {;
+    } catch (err) {
     } finally {
       setIsLoading(false);
     }

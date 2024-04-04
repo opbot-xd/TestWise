@@ -5,8 +5,7 @@ import PrevTest from "./Components/prevTest/prevTest";
 import CurrTest from "./Components/currTest/currTest";
 import FutureTest from "./Components/futureTest/futureTest";
 import LoginSignup from "./Components/LoginSignup/LoginSignup";
-
-const index = -1;
+import QuestionsPage from "./Components/Paper";
 
 function App() {
   return (
@@ -17,6 +16,7 @@ function App() {
         <Route path="/previous-tests" Component={PrevTest} />
         <Route path="/current-tests" Component={CurrTest} />
         <Route path="/future-tests" Component={FutureTest} />
+        <Route path="/test/:id" Component={QuestionsPage} />
       </Routes>
     </BrowserRouter>
   );

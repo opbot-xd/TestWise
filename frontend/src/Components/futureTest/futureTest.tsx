@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './futureTest.css';
+import React, { useState, useEffect } from "react";
+import "./futureTest.css";
+import { Link } from "react-router-dom";
 
 interface Test {
   id: number;
@@ -19,17 +20,17 @@ const FutureTest: React.FC = () => {
       setError(null);
 
       try {
-        const response = await fetch('http://localhost:8000/get_future_tests/');
+        const response = await fetch("http://localhost:8000/get_future_tests/");
         const data: Test[] = await response.json();
 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
 
         setFutureTests(data);
       } catch (error) {
-        console.error('Error fetching future tests:', error);
-        setError('An error occurred while fetching tests.');
+        console.error("Error fetching future tests:", error);
+        setError("An error occurred while fetching tests.");
       } finally {
         setIsLoading(false);
       }
@@ -52,9 +53,14 @@ const FutureTest: React.FC = () => {
           </div>
           {futureTests.map((test) => (
             <div className="row" key={test.id}>
-              <div className="col-3">{test.title}</div>
+              <div className="col-3">
+                <Link to={`/test/${test.id}`}>{test.title}</Link>
+              </div>
               <div className="col-6">{test.description}</div>
-              <div className="col-3">{formatTestTime(test.start_date)}</div>  {/* Assuming a start_date property */}
+              <div className="col-3">
+                {formatTestTime(test.start_date)}
+              </div>{" "}
+              {/* Assuming a start_date property */}
             </div>
           ))}
         </div>
@@ -75,11 +81,11 @@ function formatTestTime(dateString: string): string {
   // Or use built-in JavaScript Date formatting (replace with your desired format):
   const date = new Date(dateString);
   const formattedTime = date.toLocaleString([], {
-    year: 'numeric', // Include year
-    month: 'short', // Short month name (e.g., Jan, Feb)
-    day: '2-digit', // Pad with zero if needed (e.g., 01)
-    hour: '2-digit', // Pad with zero if needed
-    minute: '2-digit',
+    year: "numeric", // Include year
+    month: "short", // Short month name (e.g., Jan, Feb)
+    day: "2-digit", // Pad with zero if needed (e.g., 01)
+    hour: "2-digit", // Pad with zero if needed
+    minute: "2-digit",
   });
   return formattedTime;
 }

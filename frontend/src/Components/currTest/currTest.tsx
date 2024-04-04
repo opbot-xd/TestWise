@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './currTest.css';
+import React, { useState, useEffect } from "react";
+import "./currTest.css";
+import { Link } from "react-router-dom";
 
 interface Test {
   id: number;
@@ -19,16 +20,18 @@ const CurrTest: React.FC = () => {
       setError(null);
 
       try {
-        const response = await fetch('http://localhost:8000/api/get_current_tests/');
+        const response = await fetch(
+          "http://localhost:8000/api/get_current_tests/"
+        );
         const data: Test[] = await response.json();
 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
 
         setUpcomingTests(data);
       } catch (error) {
-        console.error('Error fetching upcoming tests:', error);        
+        console.error("Error fetching upcoming tests:", error);
       } finally {
         setIsLoading(false);
       }
@@ -51,9 +54,14 @@ const CurrTest: React.FC = () => {
           </div>
           {upcomingTests.map((test) => (
             <div className="row" key={test.id}>
-              <div className="col-3">{test.title}</div>
+              <div className="col-3">
+                <Link to={`/test/${test.id}`}>{test.title}</Link>
+              </div>
               <div className="col-6">{test.description}</div>
-              <div className="col-3">{formatTestTime(test.start_date)}</div>  {/* Assuming a start_date property */}
+              <div className="col-3">
+                {formatTestTime(test.start_date)}
+              </div>{" "}
+              {/* Assuming a start_date property */}
             </div>
           ))}
         </div>
@@ -74,11 +82,11 @@ function formatTestTime(dateString: string): string {
   // Or use built-in JavaScript Date formatting (replace with your desired format):
   const date = new Date(dateString);
   const formattedTime = date.toLocaleString([], {
-    year: 'numeric', // Include year
-    month: 'short', // Short month name (e.g., Jan, Feb)
-    day: '2-digit', // Pad with zero if needed (e.g., 01)
-    hour: '2-digit', // Pad with zero if needed
-    minute: '2-digit',
+    year: "numeric", // Include year
+    month: "short", // Short month name (e.g., Jan, Feb)
+    day: "2-digit", // Pad with zero if needed (e.g., 01)
+    hour: "2-digit", // Pad with zero if needed
+    minute: "2-digit",
   });
   return formattedTime;
 }
