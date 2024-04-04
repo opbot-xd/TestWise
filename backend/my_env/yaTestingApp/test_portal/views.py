@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime
+from datetime import timedelta
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from .models import Test, Question, Choice
@@ -7,14 +8,22 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, TestSerializer, QuestionSerializer, ChoiceSerializer
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
-class RegisterView(APIView):
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+class RegisterView(APIView):  # type: ignore # Allow anyone to register (customize if needed)
+
     def post(self, request):
         serializer = UserSerializer(data=request.data)
+
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+            user = serializer.save()
+
+            
+            token, _ = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key})
+
+            
+
+        return Response(serializer.errors)
 
 class LoginView(APIView):
     def post(self, request):
@@ -57,7 +66,7 @@ class TestCreateView(APIView):
         return Response(serializer.errors, status=400)
 
 class QuestionCreateView(APIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [AllowAny]
 
     def post(self, request, test_id):
         try:
@@ -84,7 +93,7 @@ def get_prev_tests(request):
   API endpoint to retrieve upcoming tests (start time within 3 hours).
   """
   # Calculate threshold time (current time minus 3 hours)
-  threshold_time = datetime.now() - datetime.timedelta(hours=3)
+  threshold_time = datetime.now() - timedelta(hours=3)
   upcoming_tests = Test.objects.filter(start_date__lt=threshold_time)
   serializer = TestSerializer(upcoming_tests, many=True)
   return Response(serializer.data)
@@ -105,10 +114,48 @@ def get_current_tests(request):
     API endpoint to retrieve tests within the next 3 hours from current time.
     """
     current_time = datetime.now()
-    threshold_time = current_time + datetime.timedelta(hours=3)  # Add 3 hours
+    threshold_time = current_time + timedelta(hours=-3)  # Add 3 hours
 
     upcoming_tests = Test.objects.filter(
-        start_date__gt=current_time, start_date__lt=threshold_time
+        start_date__lt=current_time, start_date__gt=threshold_time
     )
     serializer = TestSerializer(upcoming_tests, many=True)
     return Response(serializer.data)
+
+class TestQuestionsView(APIView):
+    """
+    API endpoint to retrieve all questions of a given test by its name.
+    """
+
+    def get(self, request, test_name):
+        try:
+            # Retrieve the test instance based on the provided name (case-sensitive)
+            test = Test.objects.get(title__exact=test_name)  # Use exact match for clarity
+        except Test.DoesNotExist:
+            return Response({'error': 'Test not found'})
+
+        # Filter questions belonging to the retrieved test
+        questions = Question.objects.filter(test=test)
+        serializer = QuestionSerializer(questions, many=True)  # Serialize all questions
+
+        return Response(serializer.data)
+    
+
+class QuestionChoicesView(APIView):
+    """
+    API endpoint to retrieve all choices of a given question within a test.
+    """
+
+    def get(self, request, test_name, question_text):
+        try:
+        # Retrieve the test instance (case-sensitive match)
+            test = Test.objects.get(title__exact=test_name)
+            question = Question.objects.get(test=test, text=question_text)
+        # Retrieve the question belonging to the test (case-sensitive match)
+            question = Question.objects.get(test=test, text=question_text)  # Filter by text instead of ID
+        except (Test.DoesNotExist, Question.DoesNotExist):
+                return Response({'error': 'Test or question not found'})
+        choices = Choice.objects.filter(question=question)
+        serializer = ChoiceSerializer(choices, many=True)  # Serialize all choices
+
+        return Response(serializer.data)

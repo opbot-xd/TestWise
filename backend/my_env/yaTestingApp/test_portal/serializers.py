@@ -11,9 +11,10 @@ class AdminSerializer(UserSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
     class Meta:
         model = User
-        fields = ("id", "username")
+        fields = ("username", "password")
 
 class TestSerializer(serializers.ModelSerializer):
     class Meta:
