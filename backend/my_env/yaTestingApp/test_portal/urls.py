@@ -12,7 +12,7 @@ urlpatterns = [
     path('get_prev_tests/', views.get_prev_tests, name='get_prev_tests'),
     path('get_future_tests/', views.get_future_tests, name='get_future_tests'),
     path('api/get_current_tests/', views.get_current_tests, name='get_current_tests'),
-    path('tests/questions/<str:test_name>/<str:question_text>/choices/', QuestionChoicesView.as_view()),
+    path('tests/questions/<str:question_text>/choices/', QuestionChoicesView.as_view()),
 
 
 ]

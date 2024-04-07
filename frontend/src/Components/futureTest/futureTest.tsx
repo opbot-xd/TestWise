@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./futureTest.css";
-import { Link } from "react-router-dom";
 
 interface Test {
   id: number;
@@ -54,8 +53,7 @@ const FutureTest: React.FC = () => {
           {futureTests.map((test) => (
             <div className="row" key={test.id}>
               <div className="col-3">
-                <Link to={`/test/${test.id}`}>{test.title}</Link>
-              </div>
+                {test.title}</div>
               <div className="col-6">{test.description}</div>
               <div className="col-3">
                 {formatTestTime(test.start_date)}

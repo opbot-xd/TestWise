@@ -54,7 +54,7 @@ const PrevTest: React.FC = () => {
           {prevTests.map((test) => (
             <div className="row" key={test.id}>
               <div className="col-3">
-                <Link to={`/test/${test.id}`}>{test.title}</Link>
+                <Link to={`/test/${test.title}`}>{test.title}</Link>
               </div>
               <div className="col-6">{test.description}</div>
               <div className="col-3">

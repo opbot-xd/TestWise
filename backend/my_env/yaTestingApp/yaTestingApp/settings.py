@@ -54,9 +54,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware'
 ]
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Allow requests from your frontend origin
-]
+
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS=True
 ROOT_URLCONF = 'yaTestingApp.urls'
 

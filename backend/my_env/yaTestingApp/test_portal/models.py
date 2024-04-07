@@ -27,7 +27,7 @@ class Question(models.Model):
     """
     Model for questions.
     """
-    text = models.TextField()
+    text = models.TextField(unique=True)
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
     question_type = models.CharField(max_length=10, choices=[  # Define choices for question types
         ('MCQ', 'Multiple Choice Question (Single Answer)'),

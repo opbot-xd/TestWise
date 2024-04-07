@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import HomeList from "./Components/HomeList";
 import PrevTest from "./Components/prevTest/prevTest";
 import CurrTest from "./Components/currTest/currTest";
@@ -16,7 +16,7 @@ function App() {
         <Route path="/previous-tests" Component={PrevTest} />
         <Route path="/current-tests" Component={CurrTest} />
         <Route path="/future-tests" Component={FutureTest} />
-        <Route path="/test/:id" Component={QuestionsPage} />
+        <Route path="/test/:testTitle" Component={QuestionsPage} />
       </Routes>
     </BrowserRouter>
   );
