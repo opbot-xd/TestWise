@@ -146,13 +146,12 @@ class QuestionChoicesView(APIView):
     API endpoint to retrieve all choices of a given question within a test.
     """
 
-    def get(self, request, test_name, question_text):
+    def get(self, request, question_text):
         try:
         # Retrieve the test instance (case-sensitive match)
-            test = Test.objects.get(title__exact=test_name)
-            question = Question.objects.get(test=test, text=question_text)
+            question = Question.objects.get(text=question_text)
         # Retrieve the question belonging to the test (case-sensitive match)
-            question = Question.objects.get(test=test, text=question_text)  # Filter by text instead of ID
+            question = Question.objects.get(text=question_text)  # Filter by text instead of ID
         except (Test.DoesNotExist, Question.DoesNotExist):
                 return Response({'error': 'Test or question not found'})
         choices = Choice.objects.filter(question=question)

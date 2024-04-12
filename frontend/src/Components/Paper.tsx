@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Assuming you're using React Router
+import { useParams } from 'react-router-dom';
+import axios from "axios";
 
 interface Question {
   text: string;
@@ -9,7 +10,7 @@ interface Question {
 }
 
 const QuestionsPage: React.FC = () => {
-  const { testTitle } = useParams<{ testTitle: string }>(); // Extract testTitle from URL
+  const { testTitle } = useParams<{ testTitle: string }>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -19,15 +20,17 @@ const QuestionsPage: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/tests/questions/${testTitle}`); // Use template literal
+      const response = await axios.get<Question[]>(
+        `http://localhost:8000/tests/questions/${testTitle}`
+      );
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error(`Error fetching questions: ${response.statusText}`);
       }
 
-      const data: Question[] = await response.json(); // Type assertion for clarity
-      setQuestions(data.map((question) => ({ ...question, choices: [] }))); // Initialize choices
-    } catch (err) {
+      setQuestions(response.data); // No need for manual type assertion
+    } catch (err: any) {
+      setError(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -35,20 +38,19 @@ const QuestionsPage: React.FC = () => {
 
   const fetchChoices = async (question: Question) => {
     try {
-      const response = await fetch(
-        `http://localhost:8000/tests/questions/${question.text}/choices` // Construct URL for choices
+      const response = await axios.get<Question['choices']>(
+        `http://localhost:8000/tests/questions/${question.text}/choices`
       );
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error(`Error fetching choices for ${question.text}`);
       }
 
-      const choices: Question['choices'] = await response.json(); // Type assertion for clarity
       setQuestions((prevQuestions) =>
-        prevQuestions.map((q) => (q === question ? { ...q, choices } : q))
-      ); // Update question with choices
-    } catch (err) {
-      console.error(`Error fetching choices for ${question.text}`, err); // Log error for debugging
+        prevQuestions.map((q) => (q === question ? { ...q, choices: response.data } : q))
+      );
+    } catch (err: any) {
+      console.error(`Error fetching choices for ${question.text}`, err);
     }
   };
 
@@ -57,7 +59,7 @@ const QuestionsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    questions.forEach(fetchChoices); // Fetch choices for each question after initial fetch
+    questions.forEach(fetchChoices);
   }, [questions]);
 
   return (
@@ -75,7 +77,7 @@ const QuestionsPage: React.FC = () => {
                 <li key={index}>
                   <p>{question.text}</p>
                   <ul>
-                    {question.choices.map((choice, choiceIndex) => (
+                    {question.choices?.map((choice, choiceIndex) => (
                       <li
                         key={choiceIndex}
                         style={{
